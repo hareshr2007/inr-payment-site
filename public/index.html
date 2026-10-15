@@ -1,35 +1,84 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta charset = "UTF-8">
-        <meta
-        name="viewport" 
-        content="width=device-width, initial-scale=1.0">
-        <title>Haresh's Store</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
 
-    <body>
-        <div class="container">
-            <h1>
-                Welcome to Haresh's Store
-            </h1>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Haresh's Store</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Welcome to Haresh's Store</h1>
+
+        <p>
+            THIS IS OUR PAYMENTS SECTION
+        </p>
+
+        <h2>₹1</h2>
+
+        <!-- Razorpay payment -->
+        <button id="payButton">
+            Pay ₹1 with Razorpay
+        </button>
+
+        <hr>
+
+        <!-- QR payment section -->
+        <div id="qrPayment">
+
+            <h3>Scan to Pay ₹1</h3>
+
+            <img
+                id="qrImage"
+                src="/my-gpay-qr.png"
+                alt="Scan this QR code to pay ₹1"
+                width="250"
+            >
 
             <p>
-                THIS IS OUR PAYMENTS SECTION
-
+                Scan this QR code with Google Pay or another UPI app.
             </p>
 
-            <h2>
-                ₹1
-            </h2>
+            <p>
+                QR expires in:
+                <strong id="qrTimer">05:00</strong>
+            </p>
 
-            <button id="payButton">Pay ₹1</button>
-            <img src="/my-gpay-qr.png" alt="Scan to pay ₹1" width="250">
-            <p>Scan this QR code to pay ₹1</p>
-            <p id="paymentMessage"></p>
         </div>
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-        <script src="script.js"></script>
-    </body>
+
+        <!-- Appears after QR expires -->
+        <div id="qrExpired" style="display: none;">
+
+            <h3>QR Code Expired</h3>
+
+            <p>
+                This QR code is no longer being displayed.
+            </p>
+
+            <button onclick="location.reload()">
+                Refresh Page
+            </button>
+
+        </div>
+
+        <p id="paymentMessage"></p>
+
+    </div>
+
+    <!-- Razorpay -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Your JavaScript -->
+    <script src="script.js"></script>
+
+</body>
 </html>
