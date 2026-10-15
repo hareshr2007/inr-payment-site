@@ -1,0 +1,136 @@
+/* Remove default browser spacing */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* Entire webpage */
+
+body {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-color: #f4f6f8;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+/* Payment card */
+
+.container {
+    width: 380px;
+
+    background-color: white;
+
+    padding: 40px;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.10);
+}
+
+
+/* Main heading */
+
+h1 {
+    margin-top: 0;
+
+    color: #111827;
+
+    font-size: 30px;
+}
+
+
+/* Product name */
+
+.product-name {
+    color: #6b7280;
+
+    font-size: 18px;
+}
+
+
+/* Price */
+
+.price {
+    color: #111827;
+
+    font-size: 40px;
+
+    margin: 20px 0;
+}
+
+
+/* Description */
+
+.description {
+    color: #6b7280;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+
+/* Payment button */
+
+button {
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+
+/* When mouse is over button */
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* When button is clicked */
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* Mobile screens */
+
+@media (max-width: 500px) {
+
+    .container {
+        width: 90%;
+
+        padding: 30px;
+    }
+
+}
