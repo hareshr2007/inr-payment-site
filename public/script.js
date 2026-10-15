@@ -1,13 +1,14 @@
-const payButton = document.getElementById("payButton");
-
-// ===============================
+// ==========================================
 // RAZORPAY PAYMENT
-// ===============================
+// ==========================================
+
+const payButton = document.getElementById("payButton");
 
 payButton.addEventListener("click", async function () {
 
     try {
 
+        // Create Razorpay order
         const response = await fetch("/create-order", {
             method: "POST",
 
@@ -26,6 +27,7 @@ payButton.addEventListener("click", async function () {
 
         const order = await response.json();
 
+        // Razorpay Checkout
         const options = {
 
             key: "rzp_test_ToFel4Hpq69mw0",
@@ -62,10 +64,13 @@ payButton.addEventListener("click", async function () {
                         }
                     );
 
-                    const result = await verifyResponse.json();
+                    const result =
+                        await verifyResponse.json();
 
                     const paymentMessage =
-                        document.getElementById("paymentMessage");
+                        document.getElementById(
+                            "paymentMessage"
+                        );
 
                     if (result.success) {
 
@@ -83,7 +88,9 @@ payButton.addEventListener("click", async function () {
 
                     console.error(error);
 
-                    alert("Could not verify the payment.");
+                    alert(
+                        "Could not verify the payment."
+                    );
                 }
             },
 
@@ -92,7 +99,8 @@ payButton.addEventListener("click", async function () {
             }
         };
 
-        const razorpay = new Razorpay(options);
+        const razorpay =
+            new Razorpay(options);
 
         razorpay.open();
 
@@ -107,46 +115,57 @@ payButton.addEventListener("click", async function () {
 });
 
 
-// ===============================
+// ==========================================
 // QR CODE COUNTDOWN
-// ===============================
+// ==========================================
 
-document.addEventListener("DOMContentLoaded", function () {
+const qrTimer =
+    document.getElementById("qrTimer");
 
-    let timeLeft = 5 * 60;
+const qrPayment =
+    document.getElementById("qrPayment");
 
-    const qrTimer = document.getElementById("qrTimer");
-    const qrPayment = document.getElementById("qrPayment");
-    const qrExpired = document.getElementById("qrExpired");
+const qrExpired =
+    document.getElementById("qrExpired");
 
-    if (!qrTimer || !qrPayment || !qrExpired) {
-        console.error("QR timer elements not found.");
+let timeLeft = 5 * 60;
+
+
+function updateQrTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+
+    qrTimer.textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+
+    if (timeLeft <= 0) {
+
+        clearInterval(qrCountdown);
+
+        qrPayment.style.display = "none";
+
+        qrExpired.style.display = "block";
+
         return;
     }
 
-    function updateTimer() {
 
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
+    timeLeft--;
+}
 
-        qrTimer.textContent =
-            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-        if (timeLeft <= 0) {
+// Start immediately
+updateQrTimer();
 
-            clearInterval(qrCountdown);
 
-            qrPayment.style.display = "none";
-            qrExpired.style.display = "block";
-
-            return;
-        }
-
-        timeLeft--;
-    }
-
-    updateTimer();
-
-    const qrCountdown = setInterval(updateTimer, 1000);
-
-});
+// Continue every second
+const qrCountdown =
+    setInterval(updateQrTimer, 1000);
